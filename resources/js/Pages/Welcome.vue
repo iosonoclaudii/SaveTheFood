@@ -58,8 +58,8 @@ onMounted(() => {
                 <img src="/images/logo1.png" alt="Shop Logo" class="h-12 w-12 rounded-full " />
             </div>
 
-            <!-- Testo "SHOP" centrato con effetto hover -->
-            <div class="absolute left-1/2 transform -translate-x-1/2 text-center">
+            <!-- Testo "SaveTheFood" centrato con effetto hover (visibile solo su schermi md e superiori) -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 text-center hidden md:block">
                 <h1 class="relative text-3xl font-bold text-yellow-400 transition duration-300 hover:text-yellow-500">
                     SaveTheFood
                 </h1>
@@ -138,7 +138,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Usando classi di Tailwind CSS per la maggior parte, stili personalizzati minimi */
+
 .bg-black {
     background-color: rgba(0, 0, 0, 0.6);
 }
