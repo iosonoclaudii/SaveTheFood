@@ -1,5 +1,4 @@
 <?php
-// app/Models/Product.php
 
 namespace App\Models;
 
@@ -11,7 +10,16 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'type', 'price', 'discounted_price', 'store', 'city'
+        'name',
+        'type',
+        'price',
+        'discounted_price',
+        'store',
+        'city',
     ];
-    
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

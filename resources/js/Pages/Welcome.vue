@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
+import axios from 'axios';
 
 defineProps({
     canLogin: {
@@ -22,17 +23,41 @@ defineProps({
 // Stato per il controllo dell'opacità della barra
 const isScrolled = ref(false);
 
-// Aggiungiamo un listener per la scroll per cambiare l'opacità della barra
+// Stato per i voti
+const rating = ref(0);
+const averageRating = ref(0);
+const totalRatings = ref(0);
+
+// Funzioni per recuperare e inviare valutazioni
+const getRatings = async () => {
+    try {
+        const response = await axios.get('http://127.0.0.1:8000/api/products/1/ratings');
+        averageRating.value = response.data.average_rating; // Assegna la media dei voti
+        totalRatings.value = response.data.total_ratings; // Assegna il numero totale di voti
+    } catch (error) {
+        console.error('Errore nel recupero delle valutazioni:', error);
+    }
+};
+
+const submitRating = async () => {
+    try {
+        await axios.post('http://127.0.0.1:8000/api/products/1/ratings', { rating: rating.value });
+        getRatings(); // Aggiorna i dati delle valutazioni dopo l'invio
+    } catch (error) {
+        console.error('Errore nell\'invio della valutazione:', error);
+    }
+};
+
+// Funzione per gestire lo scroll e cambiare l'opacità della barra
 onMounted(() => {
     const handleScroll = () => {
-        if (window.scrollY > 50) {
-            isScrolled.value = true;
-        } else {
-            isScrolled.value = false;
-        }
+        isScrolled.value = window.scrollY > 50;
     };
 
     window.addEventListener('scroll', handleScroll);
+
+    // Recupera le valutazioni iniziali
+    getRatings();
 
     // Rimuoviamo l'evento quando il componente è smontato
     onUnmounted(() => {
@@ -129,16 +154,23 @@ onMounted(() => {
                 <button class="px-6 py-2 bg-white text-green-700 font-bold rounded-lg transition duration-300">Shop</button>
             </div>
         </section>
+
+        <!-- Sezione per le valutazioni -->
+        <section class="p-8 max-w-4xl mx-auto bg-white rounded-lg shadow-md mt-10 text-center">
+            <h2 class="text-2xl font-bold mb-4">Leave a Rating</h2>
+            <p class="mb-6">Average Rating: {{ averageRating }} ({{ totalRatings }} Ratings)</p>
+            <input v-model="rating" type="number" min="1" max="5" class="border rounded-md p-2 w-20 text-center mb-4" placeholder="1-5" />
+            <button @click="submitRating" class="bg-blue-500 text-white px-4 py-2 rounded-md">Submit Rating</button>
+        </section>
     </main>
 
     <!-- Footer con colore uguale al background principale -->
     <footer class="py-16 text-center text-sm text-gray-300 bg-gray-800 bg-opacity-90">
-        Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+        Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }}).
     </footer>
 </template>
 
 <style scoped>
-
 .bg-black {
     background-color: rgba(0, 0, 0, 0.6);
 }
