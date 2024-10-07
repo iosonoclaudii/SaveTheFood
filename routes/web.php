@@ -4,11 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RatingController;
 
-// Definizione delle rotte per il controller RatingController
-Route::get('products/{product}/ratings', [RatingController::class, 'index']);
-Route::post('products/{product}/ratings', [RatingController::class, 'store']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
