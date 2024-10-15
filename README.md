@@ -1,66 +1,165 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SaveTheFood 🍎🥦
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**SaveTheFood** è un'applicazione web nata per ridurre lo spreco alimentare, offrendo una seconda possibilità ai prodotti alimentari che non soddisfano i canoni estetici del mercato, ma che sono perfettamente commestibili. L'obiettivo è permettere ai consumatori di acquistare questi prodotti a prezzi scontati, contribuendo così alla lotta contro lo spreco alimentare e promuovendo un consumo più sostenibile.
 
-## About Laravel
+Grazie a **SaveTheFood**, gli utenti possono esplorare un'ampia gamma di prodotti eco-friendly e fare la loro parte per salvare il cibo, il tutto con una piattaforma semplice, moderna e accessibile.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologie utilizzate 💻
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Laravel**: Backend PHP per la gestione del database e delle API.
+- **Vue.js 3**: Framework JavaScript per un'interfaccia utente dinamica e reattiva.
+- **Inertia.js**: Facilita la costruzione di Single Page Applications senza rinunciare alla semplicità di Laravel.
+- **Tailwind CSS**: Framework CSS per uno stile moderno e personalizzabile.
+- **PostgreSQL**: Database relazionale scelto per la sua robustezza e affidabilità.
+- **Heroku**: Piattaforma cloud per il deploy dell'applicazione.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Funzionalità principali 🌟
 
-## Learning Laravel
+- **Autenticazione utenti**: Registrazione e login tramite Laravel Jetstream.
+- **Sistema di rating**: Gli utenti possono assegnare un voto da 1 a 5 per promuovere i prodotti.
+- **Visualizzazione dei voti**: Mostra il numero totale dei voti ricevuti dai prodotti, aggiornato in tempo reale.
+- **Gestione dei prodotti**: Esplora e acquista prodotti eco-friendly con sconti basati sul loro stato estetico.
+- **Design reattivo**: L'interfaccia è ottimizzata per dispositivi desktop e mobile, grazie a Tailwind CSS.
+- **Deploy su Heroku**: Applicazione completamente integrata con PostgreSQL e deployata su Heroku per facilità di accesso.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installazione 🛠️
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Segui i passaggi sottostanti per installare l'applicazione in locale.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Requisiti di sistema
 
-## Laravel Sponsors
+- **PHP >= 8.2**
+- **Composer**
+- **Node.js & npm**
+- **PostgreSQL**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Passaggi di installazione
 
-### Premium Partners
+1. **Clona il repository:**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    ```bash
+    git clone https://github.com/iosonoclaudi1/SaveTheFood.git
+    cd SaveTheFood
+    ```
 
-## Contributing
+2. **Configura il file `.env`:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    Copia il file di esempio `.env` e imposta le variabili d'ambiente, come chiavi API e configurazioni del database.
 
-## Code of Conduct
+    ```bash
+    cp .env.example .env
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Installa le dipendenze PHP e JavaScript:**
 
-## Security Vulnerabilities
+    ```bash
+    composer install
+    npm install
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Genera la chiave dell'applicazione:**
 
-## License
+    ```bash
+    php artisan key:generate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. **Esegui le migrazioni del database:**
+
+    ```bash
+    php artisan migrate
+    ```
+
+6. **Compila gli asset per lo sviluppo:**
+
+    ```bash
+    npm run dev
+    ```
+
+    Per una build di produzione:
+
+    ```bash
+    npm run build
+    ```
+
+7. **Avvia il server locale:**
+
+    ```bash
+    php artisan serve
+    ```
+
+L'app sarà accessibile su `http://127.0.0.1:8000`.
+
+## API 📡
+
+SaveTheFood include alcune API per gestire i voti dei prodotti. Qui sotto ci sono due endpoint chiave.
+
+### Ottenere il numero totale di voti
+
+- **Endpoint**: `/api/ratings/total`
+- **Metodo**: `GET`
+- **Descrizione**: Restituisce il numero totale di voti dati ai prodotti.
+- **Esempio**:
+  - In locale: `http://127.0.0.1:8000/api/ratings/total`
+  - In produzione (Heroku): [`https://savethefood-6221a38a6768.herokuapp.com/api/ratings/total`](https://savethefood-6221a38a6768.herokuapp.com/api/ratings/total)
+
+### Aggiungere un voto
+
+- **Endpoint**: `/api/ratings`
+- **Metodo**: `POST`
+- **Payload**:
+
+    ```json
+    {
+      "rating": 5
+    }
+    ```
+
+- **Descrizione**: Permette all'utente di aggiungere un voto da 1 a 5.
+
+## Deploy su Heroku 🚀
+
+Per effettuare il deploy su **Heroku**, segui questi passaggi:
+
+1. **Login su Heroku**:
+
+    ```bash
+    heroku login
+    ```
+
+2. **Crea un'app su Heroku**:
+
+    ```bash
+    heroku create
+    ```
+
+3. **Aggiungi PostgreSQL al tuo progetto**:
+
+    ```bash
+    heroku addons:create heroku-postgresql:hobby-dev
+    ```
+
+4. **Imposta le variabili d'ambiente su Heroku**:
+
+    ```bash
+    heroku config:set APP_KEY=base64:<tua_chiave>
+    ```
+
+5. **Effettua il push del codice su Heroku**:
+
+    ```bash
+    git push heroku main
+    ```
+
+6. **Esegui le migrazioni del database su Heroku**:
+
+    ```bash
+    heroku run php artisan migrate --force
+    ```
+
+## Licenza 📄
+
+Questo progetto è distribuito sotto la licenza MIT. Puoi leggere il file LICENSE per maggiori informazioni.
+
+---
+
+Creato con ❤️ da **Maldera Claudio**
