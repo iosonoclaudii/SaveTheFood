@@ -1,111 +1,113 @@
 # SaveTheFood 🍎🥦
 
-**SaveTheFood** è un'applicazione web nata per ridurre lo spreco alimentare, offrendo una seconda possibilità ai prodotti alimentari che non soddisfano i canoni estetici del mercato, ma che sono perfettamente commestibili. L'obiettivo è permettere ai consumatori di acquistare questi prodotti a prezzi scontati, contribuendo così alla lotta contro lo spreco alimentare e promuovendo un consumo più sostenibile.
+**SaveTheFood** is a web application designed to reduce food waste by giving a second chance to food products that don't meet the aesthetic standards of the market but are perfectly edible. The goal is to allow consumers to purchase these products at discounted prices, contributing to the fight against food waste while promoting a more sustainable consumption model.
 
-Grazie a **SaveTheFood**, gli utenti possono esplorare un'ampia gamma di prodotti eco-friendly e fare la loro parte per salvare il cibo, il tutto con una piattaforma semplice, moderna e accessibile.
+With **SaveTheFood**, users can explore a wide range of eco-friendly products and do their part to save food, all through a simple, modern, and accessible platform.
 
-## Tecnologie utilizzate 💻
+### Live App
+You can access the live app here: [SaveTheFood](https://savethefood-6221a38a6768.herokuapp.com/)
 
-- **Laravel**: Backend PHP per la gestione del database e delle API.
-- **Vue.js 3**: Framework JavaScript per un'interfaccia utente dinamica e reattiva.
-- **Inertia.js**: Facilita la costruzione di Single Page Applications senza rinunciare alla semplicità di Laravel.
-- **Tailwind CSS**: Framework CSS per uno stile moderno e personalizzabile.
-- **PostgreSQL**: Database relazionale scelto per la sua robustezza e affidabilità.
-- **Heroku**: Piattaforma cloud per il deploy dell'applicazione.
+## Technologies Used 💻
 
-## Funzionalità principali 🌟
+- **Laravel**: Backend PHP framework for database management and API handling.
+- **Vue.js 3**: JavaScript framework for a dynamic and reactive user interface.
+- **Inertia.js**: Simplifies building Single Page Applications (SPAs) without sacrificing Laravel's simplicity.
+- **Tailwind CSS**: A modern and customizable CSS framework.
+- **PostgreSQL**: Reliable and robust relational database management system.
+- **Heroku**: Cloud platform for application deployment.
 
-- **Autenticazione utenti**: Registrazione e login tramite Laravel Jetstream.
-- **Sistema di rating**: Gli utenti possono assegnare un voto da 1 a 5 per promuovere i prodotti.
-- **Visualizzazione dei voti**: Mostra il numero totale dei voti ricevuti dai prodotti, aggiornato in tempo reale.
-- **Gestione dei prodotti**: Esplora e acquista prodotti eco-friendly con sconti basati sul loro stato estetico.
-- **Design reattivo**: L'interfaccia è ottimizzata per dispositivi desktop e mobile, grazie a Tailwind CSS.
-- **Deploy su Heroku**: Applicazione completamente integrata con PostgreSQL e deployata su Heroku per facilità di accesso.
+## Key Features 🌟
 
-## Installazione 🛠️
+- **User Authentication**: Register and login functionalities powered by Laravel Jetstream.
+- **Rating System**: Users can rate products from 1 to 5 stars to encourage food rescue.
+- **Vote Visualization**: Displays the total number of votes received by products, updated in real-time.
+- **Product Management**: Explore and purchase eco-friendly products with discounts based on their appearance.
+- **Responsive Design**: The interface is optimized for both desktop and mobile devices, thanks to Tailwind CSS.
 
-Segui i passaggi sottostanti per installare l'applicazione in locale.
+## Installation 🛠️
 
-### Requisiti di sistema
+Follow the steps below to install the application locally.
+
+### System Requirements
 
 - **PHP >= 8.2**
 - **Composer**
 - **Node.js & npm**
 - **PostgreSQL**
 
-### Passaggi di installazione
+### Installation Steps
 
-1. **Clona il repository:**
+1. **Clone the repository:**
 
     ```bash
     git clone https://github.com/iosonoclaudi1/SaveTheFood.git
     cd SaveTheFood
     ```
 
-2. **Configura il file `.env`:**
+2. **Configure the `.env` file:**
 
-    Copia il file di esempio `.env` e imposta le variabili d'ambiente, come chiavi API e configurazioni del database.
+    Copy the `.env` example file and set your environment variables, such as API keys and database configurations.
 
     ```bash
     cp .env.example .env
     ```
 
-3. **Installa le dipendenze PHP e JavaScript:**
+3. **Install PHP and JavaScript dependencies:**
 
     ```bash
     composer install
     npm install
     ```
 
-4. **Genera la chiave dell'applicazione:**
+4. **Generate the application key:**
 
     ```bash
     php artisan key:generate
     ```
 
-5. **Esegui le migrazioni del database:**
+5. **Run the database migrations:**
 
     ```bash
     php artisan migrate
     ```
 
-6. **Compila gli asset per lo sviluppo:**
+6. **Compile the assets for development:**
 
     ```bash
     npm run dev
     ```
 
-    Per una build di produzione:
+    For production build:
 
     ```bash
     npm run build
     ```
 
-7. **Avvia il server locale:**
+7. **Start the local development server:**
 
     ```bash
     php artisan serve
     ```
 
-L'app sarà accessibile su `http://127.0.0.1:8000`.
+The app will be accessible at `http://127.0.0.1:8000`.
 
 ## API 📡
 
-SaveTheFood include alcune API per gestire i voti dei prodotti. Qui sotto ci sono due endpoint chiave.
+SaveTheFood provides a few APIs for managing product ratings. Below are the two key endpoints.
 
-### Ottenere il numero totale di voti
+### Get Total Votes
 
 - **Endpoint**: `/api/ratings/total`
-- **Metodo**: `GET`
-- **Descrizione**: Restituisce il numero totale di voti dati ai prodotti.
-- **Esempio**:
-  - In locale: `http://127.0.0.1:8000/api/ratings/total`
-  - In produzione (Heroku): [`https://savethefood-6221a38a6768.herokuapp.com/api/ratings/total`](https://savethefood-6221a38a6768.herokuapp.com/api/ratings/total)
+- **Method**: `GET`
+- **Description**: Returns the total number of votes given to products.
+- **Example**:
+  - Locally: `http://127.0.0.1:8000/api/ratings/total`
+  - Production: [`https://savethefood-6221a38a6768.herokuapp.com/api/ratings/total`](https://savethefood-6221a38a6768.herokuapp.com/api/ratings/total)
 
-### Aggiungere un voto
+### Add a Vote
 
 - **Endpoint**: `/api/ratings`
-- **Metodo**: `POST`
+- **Method**: `POST`
 - **Payload**:
 
     ```json
@@ -114,52 +116,12 @@ SaveTheFood include alcune API per gestire i voti dei prodotti. Qui sotto ci son
     }
     ```
 
-- **Descrizione**: Permette all'utente di aggiungere un voto da 1 a 5.
+- **Description**: Allows users to add a rating between 1 and 5.
 
-## Deploy su Heroku 🚀
+## License 📄
 
-Per effettuare il deploy su **Heroku**, segui questi passaggi:
-
-1. **Login su Heroku**:
-
-    ```bash
-    heroku login
-    ```
-
-2. **Crea un'app su Heroku**:
-
-    ```bash
-    heroku create
-    ```
-
-3. **Aggiungi PostgreSQL al tuo progetto**:
-
-    ```bash
-    heroku addons:create heroku-postgresql:hobby-dev
-    ```
-
-4. **Imposta le variabili d'ambiente su Heroku**:
-
-    ```bash
-    heroku config:set APP_KEY=base64:<tua_chiave>
-    ```
-
-5. **Effettua il push del codice su Heroku**:
-
-    ```bash
-    git push heroku main
-    ```
-
-6. **Esegui le migrazioni del database su Heroku**:
-
-    ```bash
-    heroku run php artisan migrate --force
-    ```
-
-## Licenza 📄
-
-Questo progetto è distribuito sotto la licenza MIT. Puoi leggere il file LICENSE per maggiori informazioni.
+This project is licensed under the MIT License. Please refer to the LICENSE file for more information.
 
 ---
 
-Creato con ❤️ da **Maldera Claudio**
+Made with ❤️ by **Maldera Claudio**
