@@ -40,7 +40,7 @@ Follow the steps below to install the application locally.
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/iosonoclaudi1/SaveTheFood.git
+    git clone [https://github.com/iosonoclaudi1/SaveTheFood.git](https://github.com/iosonoclaudii/SaveTheFood)
     cd SaveTheFood
     ```
 
