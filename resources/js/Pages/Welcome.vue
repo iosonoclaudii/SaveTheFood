@@ -25,7 +25,7 @@ defineProps({
 const isScrolled = ref(false);
 
 // Stato per la gestione del rating
-const rating = ref(1); // Valore di default per il rating
+const rating = ref(0); // Valore di default per il rating
 const message = ref(''); // Messaggio per visualizzare il risultato dell'operazione
 const totalRatings = ref(0); // Numero totale dei voti
 
@@ -43,6 +43,11 @@ const getTotalRatings = () => {
 
 // Funzione per inviare il rating al server
 const submitRating = () => {
+    if (rating.value === 0) {
+        message.value = 'Per favore, seleziona un voto prima di inviare.';
+        return;
+    }
+
     axios
     .post('/api/ratings', {
         rating: rating.value, // Invia solo il rating
@@ -134,7 +139,12 @@ onMounted(() => {
             <div class="relative z-10 text-center">
                 <h1 class="text-6xl font-extrabold mb-6">Eco-Friendly Products</h1>
                 <p class="text-lg mb-8">Discover our range of eco-friendly products and reduce food waste today.</p>
-                <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition duration-300">Shop Now</button>
+                <!-- Pulsante collegato alla rotta dei prodotti -->
+                <Link :href="route('products.index')">
+                    <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition duration-300">
+                        Shop Now
+                    </button>
+                </Link>
             </div>
         </section>
 
@@ -144,51 +154,62 @@ onMounted(() => {
             <div class="bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 rounded-xl p-6 text-white text-center shadow-lg hover:scale-105 transition-transform">
                 <h2 class="text-2xl font-bold mb-4">Reduce Friendly Products</h2>
                 <p class="mb-6">Shop our range of eco-friendly products.</p>
-                <button class="px-6 py-2 bg-white text-purple-700 font-bold rounded-lg transition duration-300">Shop</button>
+                <Link :href="route('products.index')">
+                    <button class="px-6 py-2 bg-white text-purple-700 font-bold rounded-lg transition duration-300">Shop</button>
+                </Link>
             </div>
 
             <!-- Secondo div con gradiente blu ridotto -->
             <div class="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 rounded-xl p-6 text-white text-center shadow-lg hover:scale-105 transition-transform">
                 <h2 class="text-2xl font-bold mb-4">Reduce Food</h2>
                 <p class="mb-6">Explore how to reduce food waste.</p>
-                <button class="px-6 py-2 bg-white text-blue-700 font-bold rounded-lg transition duration-300">Shop</button>
+                <Link :href="route('products.index')">
+                    <button class="px-6 py-2 bg-white text-blue-700 font-bold rounded-lg transition duration-300">Shop</button>
+                </Link>
             </div>
 
             <!-- Terzo div con gradiente verde ridotto -->
             <div class="bg-gradient-to-br from-green-600 via-green-500 to-green-700 rounded-xl p-6 text-white text-center shadow-lg hover:scale-105 transition-transform">
                 <h2 class="text-2xl font-bold mb-4">Reduce Food Waste</h2>
                 <p class="mb-6">Join our mission to reduce food waste.</p>
-                <button class="px-6 py-2 bg-white text-green-700 font-bold rounded-lg transition duration-300">Shop</button>
+                <Link :href="route('products.index')">
+                    <button class="px-6 py-2 bg-white text-green-700 font-bold rounded-lg transition duration-300">Shop</button>
+                </Link>
             </div>
         </section>
 
         <!-- Form di Rating (aggiunto prima del footer) -->
         <section class="p-4 bg-gray-800 bg-opacity-90 text-white text-center">
             <h2 class="text-2xl mb-4">Lascia un Voto</h2>
-            <form @submit.prevent="submitRating">
-                <label for="rating" class="block text-lg">Seleziona un voto da 1 a 5:</label>
-                <select v-model="rating" id="rating" class="mt-2 mb-4 p-2 rounded text-black">
-                    <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
-                </select>
-                <button type="submit" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition duration-300">Invia Voto</button>
-                <p v-if="message" class="mt-4">{{ message }}</p> <!-- Messaggio di successo o errore -->
-            </form>
+            <div class="flex justify-center space-x-2 mb-4">
+                <!-- Sistema di rating con stelle -->
+                <span 
+                    v-for="n in 5" 
+                    :key="n" 
+                    @click="rating = n" 
+                    :class="{
+                        'text-yellow-400': n <= rating,
+                        'text-gray-400': n > rating,
+                    }" 
+                    class="cursor-pointer text-3xl"
+                >
+                    ★
+                </span>
+            </div>
+            <button @click="submitRating" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition duration-300">Invia Voto</button>
+            <p v-if="message" class="mt-4">{{ message }}</p> <!-- Messaggio di successo o errore -->
             <p class="mt-4">Totale voti: {{ totalRatings }}</p> <!-- Mostra il totale dei voti -->
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="py-16 text-center text-sm text-gray-300 bg-gray-800 bg-opacity-90">
-        Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+        Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }} )
     </footer>
 </template>
 
 <style scoped>
 .bg-black {
     background-color: rgba(0, 0, 0, 0.6);
-}
-
-.hover\:scale-105:hover {
-    transform: scale(1.05);
 }
 </style>
