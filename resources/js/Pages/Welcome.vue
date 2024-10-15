@@ -1,7 +1,9 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { ref, onMounted, onUnmounted } from 'vue';
+import axios from 'axios'; // Importa axios per gestire le richieste HTTP
 
+// Definisci le proprietà del componente
 defineProps({
     canLogin: {
         type: Boolean,
@@ -22,14 +24,44 @@ defineProps({
 // Stato per il controllo dell'opacità della barra
 const isScrolled = ref(false);
 
+// Stato per la gestione del rating
+const rating = ref(1); // Valore di default per il rating
+const message = ref(''); // Messaggio per visualizzare il risultato dell'operazione
+const totalRatings = ref(0); // Numero totale dei voti
+
+// Funzione per ottenere il numero totale dei voti
+const getTotalRatings = () => {
+    axios
+        .get('/api/ratings/total')
+        .then((response) => {
+            totalRatings.value = response.data.total_ratings; // Imposta il numero totale dei voti
+        })
+        .catch((error) => {
+            console.error('Errore durante il recupero del numero di voti:', error);
+        });
+};
+
+// Funzione per inviare il rating al server
+const submitRating = () => {
+    axios
+    .post('/api/ratings', {
+        rating: rating.value, // Invia solo il rating
+    })
+    .then((response) => {
+        message.value = 'Voto aggiunto con successo!';
+        getTotalRatings(); // Aggiorna il numero totale dei voti
+    })
+    .catch((error) => {
+        message.value = 'Errore durante l\'invio del voto.';
+    });
+};
+
 // Aggiungiamo un listener per la scroll per cambiare l'opacità della barra
 onMounted(() => {
+    getTotalRatings(); // Ottieni il numero totale di voti all'avvio della pagina
+
     const handleScroll = () => {
-        if (window.scrollY > 50) {
-            isScrolled.value = true;
-        } else {
-            isScrolled.value = false;
-        }
+        isScrolled.value = window.scrollY > 50;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -110,7 +142,7 @@ onMounted(() => {
         <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-8 max-w-7xl mx-auto">
             <!-- Primo div con gradiente viola ridotto -->
             <div class="bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 rounded-xl p-6 text-white text-center shadow-lg hover:scale-105 transition-transform">
-                <h2 class="text-2xl font-bold mb-4">Reduce Sirendly Products</h2>
+                <h2 class="text-2xl font-bold mb-4">Reduce Friendly Products</h2>
                 <p class="mb-6">Shop our range of eco-friendly products.</p>
                 <button class="px-6 py-2 bg-white text-purple-700 font-bold rounded-lg transition duration-300">Shop</button>
             </div>
@@ -129,16 +161,29 @@ onMounted(() => {
                 <button class="px-6 py-2 bg-white text-green-700 font-bold rounded-lg transition duration-300">Shop</button>
             </div>
         </section>
+
+        <!-- Form di Rating (aggiunto prima del footer) -->
+        <section class="p-4 bg-gray-800 bg-opacity-90 text-white text-center">
+            <h2 class="text-2xl mb-4">Lascia un Voto</h2>
+            <form @submit.prevent="submitRating">
+                <label for="rating" class="block text-lg">Seleziona un voto da 1 a 5:</label>
+                <select v-model="rating" id="rating" class="mt-2 mb-4 p-2 rounded text-black">
+                    <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
+                </select>
+                <button type="submit" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition duration-300">Invia Voto</button>
+                <p v-if="message" class="mt-4">{{ message }}</p> <!-- Messaggio di successo o errore -->
+            </form>
+            <p class="mt-4">Totale voti: {{ totalRatings }}</p> <!-- Mostra il totale dei voti -->
+        </section>
     </main>
 
-    <!-- Footer con colore uguale al background principale -->
+    <!-- Footer -->
     <footer class="py-16 text-center text-sm text-gray-300 bg-gray-800 bg-opacity-90">
         Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
     </footer>
 </template>
 
 <style scoped>
-
 .bg-black {
     background-color: rgba(0, 0, 0, 0.6);
 }
